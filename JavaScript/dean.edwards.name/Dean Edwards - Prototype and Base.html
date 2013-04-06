@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title>Dean Edwards: Prototype and Base</title>
+ <meta charset="utf-8">
+ <meta name="author" content="Dean Edwards"><!-- Keeping code tidy! :) -->
+ <link rel="stylesheet" href="http://web.archive.org/web/20120826045156cs_/http://deanedwardsoffline.appspot.com/css/style.css" media="all">
+ <link rel="icon" href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/favicon.ico" type="image/x-icon">
+ <script src="./Dean Edwards - Prototype and Base_files/my.js"></script>
+ <!--[if lt IE 9]><script>"abbr,article,footer,header,nav,section,time".replace(/\w+/g,function(t){document.createElement(t)})</script><![endif]-->
+ <link rel="alternate" type="application/rss+xml" title="RSS" href="http://web.archive.org/web/20120826045156/http://feeds.feedburner.com/deanedwards/weblog">
+ <link rel="pingback" href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/xmlrpc.php">
+</head>
+
+<body id="weblog-single">
+
+<header>
+ <h1 class="home"><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/">dean.edwards.name</a>/<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/">weblog</a>/<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/">2006</a>/<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/">05</a>/prototype-and-base/</h1>
+  <h2>Retrieved by http://web.archive.org/ on Sat Apr 6, 2013</h2>
+ <nav>
+  <ul><!--
+--><li><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/my/">my</a></li><!--
+--><li><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/">weblog</a></li><!--
+--><li><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/about/">about</a></li><!--
+--><li><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/contact/">contact</a></li><!--
+--><li class="last-child"><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/search/">search</a></li><!--
+--></ul>
+ </nav>
+</header>
+
+<nav id="prev-next">
+ <ul>
+  <li class="prev" title="Previous post"><span>Previous post: </span><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/close/">Close, But No Doughnut</a></li>
+  <li class="next" title="Next post"><span>Next post: </span><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/06/levels/">Levels of JavaScript Knowledge</a></li>
+ </ul>
+</nav>
+
+<article>
+<header>
+ <h2>Prototype and Base</h2>
+</header>
+<p>Woah! <a href="http://web.archive.org/web/20120826045156/http://conio.net/">Sam Stephenson</a> has a <a href="http://web.archive.org/web/20120826045156/http://sam.conio.net/">blog</a>!</p>
+
+<p>In his <a href="http://web.archive.org/web/20120826045156/http://sam.conio.net/articles/better-inheritance-for-prototype">first post</a> he discusses inheritance in his <a href="http://web.archive.org/web/20120826045156/http://prototype.conio.net/">Prototype library</a>. I’m a big fan of Prototype (I also like <a href="http://web.archive.org/web/20120826045156/http://jquery.com/">JQuery</a>) and I’m pleased to see that he is considering using my <a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/base/Base.js">Base class</a> in his library (<a href="http://web.archive.org/web/20120826045156/http://encytemedia.com/blog/articles/2006/05/23/prototype-inheritance-madness">thanks to Justin Palmer</a>).</p>
+
+<p>I’ve made a couple of tweaks to the class since I last <a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/03/base/">blogged</a> about it. The most important change is that I’ve renamed the <code>inherit</code> method to <code>base</code>. I caved in to <a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/03/base/#comment3149">pressure</a>.</p>
+
+<p>These are the other small changes:</p>
+<ul>
+<li><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/03/base/#comment4041">added a method</a> to make multiple inheritance (yuk) easier
+<pre class="javascript highlight">FlyingFish = Fish.<span class="base2">extend</span>();
+FlyingFish.<span class="base2">implement</span>(Bird);
+</pre>
+</li>
+<li>the <code>Base</code> constructor function can now be used to cast an object to a <code>Base</code> object
+<pre class="javascript highlight"><span class="keyword">var</span> widget = <span class="global">document</span>.getElementById(<span class="string">"my-widget"</span>);
+<span class="base2">Base</span>(widget);
+widget.<span class="base2">extend</span>({
+...
+});
+</pre>
+</li>
+<li>constructor functions are now <a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/03/base/#comment3323">inherited</a> (my bad)</li>
+</ul>
+<p>I still think the <code>Base</code> class can be improved. For example, extending a prototype object after it has been subclassed will not effect a previously established inheritance chain. I think this is fixable though. I’d be interested to see if Sam and the other Prototype hackers can improve the class further. But I’d like to keep the class short and sweet if possible.</p>
+
+<p>The <a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/base/">development area</a> is a little bit broken at the moment. I’ll update it properly soon and put out another shiny blog post to describe some of the classes I have built with Base.</p>
+
+<footer>
+ <ul class="meta">
+  <li>Posted: <time datetime="2006-05-23T21:35:55+00:00">2006/05/23 9:35 pm</time></li>
+  <li>Filed under: <a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/category/base2/" title="View all posts in base2" rel="category tag">base2</a>,<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/category/javascript/" title="View all posts in JavaScript" rel="category tag">JavaScript</a></li>
+  <li>Links:
+   <a href="./Dean Edwards - Prototype and Base_files/Dean Edwards - Prototype and Base.html" title="Permanent link to this post">permalink</a>,
+   <a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/feed/" title="Track repsonses to this post" rel="nofollow">feed</a></li>
+ </ul>
+</footer>
+</article>
+
+<section id="comments">
+<h3>Comments (60)</h3>
+<p><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#postcomment">Leave a comment</a></p>
+
+<article id="comment4470">
+<p class="permalink">
+<a href="./Dean Edwards - Prototype and Base_files/saved_resource" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>1</a>
+</p>
+<p>I’ve been playing with Base a lot during the past couple days – having that Base(widget) wrapper will be really nice. I have a stripped down version working with a personal copy of jQuery, so  that I can do the following:</p>
+<pre class="javascript highlight">$(<span class="string">"div.foo li"</span>)[<span class="number">0</span>]</pre>
+<p>or even:</p>
+<pre class="javascript highlight">$(<span class="string">"div.foo li"</span>).<span class="base2">detect</span>(<span class="keyword">function</span>(li){
+&nbsp;&nbsp;<span class="keyword">return</span> li.name == <span class="string">'foo'</span>;
+});</pre>
+<p>which is a combination of jQuery, Base, and Prototype-enhanced Array notation (Since Prototype extends the Array object with its own methods and my modified version of jQuery is a sub-class of the Array object). I’m definitely going to play around with it some more and release what I have for everyone else to use, on the jQuery mailing list.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://jquery.com/" rel="external" class="url">John Resig</a></cite></li>
+ <li>Posted: <time datetime="2006-05-24T04:19:44+00:00">2006/05/24 4:19 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4488">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4488" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>2</a>
+</p>
+<p>Hey, Dean,</p>
+<p>I tripped over a really insidious bug the other day (working on my own inheritance scheme, the <a href="http://web.archive.org/web/20120826045156/http://dev.rubyonrails.org/ticket/4060">#4060</a> which Sam gently disses in his blog post :/ ).</p>
+<p>In this code from Base.js, you need to protect the method call from exceptions thrown internally (periods just for indentation):</p>
+<pre class="javascript highlight">value = <span class="keyword">function</span>() {
+&nbsp;&nbsp;<span class="keyword">var</span> previous = <span class="keyword">this</span>.<span class="base2">base</span>;
+&nbsp;&nbsp;<span class="keyword">this</span>.<span class="base2">base</span> = ancestor;
+&nbsp;&nbsp;<span class="keyword">var</span> returnValue = method.apply(<span class="keyword">this</span>, <span class="keyword">arguments</span>);
+&nbsp;&nbsp;<span class="keyword">this</span>.<span class="base2">base</span> = previous;
+&nbsp;&nbsp;<span class="keyword">return</span> returnValue;
+};
+</pre>
+<p>Something like the following is needed:</p>
+<pre class="javascript highlight">value = <span class="keyword">function</span>() {
+&nbsp;&nbsp;<span class="keyword">var</span> previous = <span class="keyword">this</span>.<span class="base2">base</span>;
+&nbsp;&nbsp;<span class="keyword">this</span>.<span class="base2">base</span> = ancestor;
+&nbsp;&nbsp;<span class="special">try</span> { <span class="keyword">var</span> returnValue = method.apply(<span class="keyword">this</span>, <span class="keyword">arguments</span>); }
+&nbsp;&nbsp;<span class="special">catch</span> (ex) { <span class="special">throw</span> ex; }
+&nbsp;&nbsp;<span class="special">finally</span> { <span class="keyword">this</span>.<span class="base2">base</span> = previous; }
+&nbsp;&nbsp;<span class="keyword">return</span> returnValue;
+};
+</pre>
+<p>Otherwise, the statement “this.base = previous” will be skipped if an exception is thrown inside the method call.</p>
+<p>Cheers,
+Ben</p>
+<p>P.S.  How would you feel about working together on this whole thing?  I’ve given a lot of thought to the same issues, and a new inheritance system will be a rather critical element of the 2.0 version of Prototype.  We should do it right.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dev.rubyonrails.org/ticket/4060" rel="external" class="url">Ben Newman</a></cite></li>
+ <li>Posted: <time datetime="2006-05-24T07:03:12+00:00">2006/05/24 7:03 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4494">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4494" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>3</a>
+</p>
+<p>@John – I’d like it if <em>all</em> Base constructors could be used to cast native objects. e.g. <code>WidgetClass(element);</code> I think this is doable (just not sure how yet).</p>
+<p>I’d be interested to see the work you’ve done. It sounds similar to some of the things I am writing and it looks like Prototype is <a href="http://web.archive.org/web/20120826045156/http://encytemedia.com/blog/articles/2006/03/07/prototype-gets-some-serious-syntactic-sugar">becoming</a> more JQuery-like too.</p>
+<p>@Ben – Thanks for that fix! I was hoping that the Prototype gang could improve Base and you already have! I’d be happy to help out integrrating Base with Prototype. I’m hoping that the process will improve both sets of code.</p>
+<p>@Both – It seems that our work overlaps in certain areas. I’m not suggesting we join forces to build a mega-library (we’ll leave that to <a href="http://web.archive.org/web/20120826045156/http://dojotoolkit.org/">others</a>) but let’s keep an eye on each others work. We should not be afraid to co-opt good techniques from one library into another.</p>
+<p>One more thing, both JQuery and Prototype have fantastic iteration methods. Mozilla provides <a href="http://web.archive.org/web/20120826045156/http://developer.mozilla.org/en/docs/New_in_JavaScript_1.6#Array_extras">very similar methods</a> natively. Why not use those methods on a Mozilla platform? e.g. use <code>forEach</code> instead of <code>each</code>. That way you get a speed boost for those 15% of people who use a Mozilla browser.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-05-24T11:02:45+00:00">2006/05/24 11:02 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4501" class="trackback">
+<p class="permalink">
+<span>Comment: #</span>4</p>
+<p>[...] norati.com/tag/Articles” rel=”tag” title=”View the technorati tag: Articles”&gt;         	Dean Edwards came up with Base as a way to give nice inheritence management in JavaSc [...]</p>
+<footer>
+<ul class="meta">
+ <li class="author">Pingback by: <cite><a href="http://web.archive.org/web/20120826045156/http://ajaxian.com/archives/prototype-class-system" rel="external" class="url">Ajaxian » Prototype Class System</a></cite></li>
+ <li>Posted: <time datetime="2006-05-24T16:07:31+00:00">2006/05/24 4:07 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4508">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4508" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>5</a>
+</p>
+<p>By the way, the thing I like most about your system is that your syntax (calling extend() on an existing class) makes it seem like single inheritance is the most natural thing in the world.  I specify the base class with a property (“extending”), which has always felt a little arbitrary.  Might co-op the idea from ya <img src="./Dean Edwards - Prototype and Base_files/icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+<p>Ben
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dev.rubyonrails.org/ticket/4060" rel="external" class="url">Ben Newman</a></cite></li>
+ <li>Posted: <time datetime="2006-05-24T22:15:35+00:00">2006/05/24 10:15 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4510">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4510" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>6</a>
+</p>
+<p>I’m probably being dense, but I can’t figure out how to create a class that extends a DOM class.  When I try the following in Firefox:</p>
+<pre class="javascript highlight"><span class="keyword">var</span> divBase = <span class="global">document</span>.createElement(<span class="string">"div"</span>);
+<span class="base2">Base</span>(divBase);
+<span class="keyword">var</span> MyDiv = divBase.<span class="base2">extend</span>({
+<span class="global">constructor</span>: <span class="keyword">function</span>(name) {
+&nbsp;&nbsp;<span class="keyword">this</span>.name = name;
+&nbsp;&nbsp;<span class="keyword">this</span>.appendChild(<span class="global">document</span>.createTextNode(<span class="keyword">this</span>.name));
+},
+
+&nbsp;&nbsp;yo: <span class="keyword">function</span>(){
+&nbsp;&nbsp;<span class="special">alert</span>(<span class="string">"yo"</span>);
+&nbsp;&nbsp;}
+});
+x = <span class="keyword">new</span> MyDiv();
+x.yo();
+</pre>
+<p>I get this:</p>
+<pre>uncaught exception: [Exception... "Cannot convert WrappedNative to function" nsresult: "0x8057000d (NS_ERROR_XPC_CANT_CONVERT_WN_TO_FUN)" location: "JS frame :: &gt;a href="http://www.example.com/test.html"&lt;<a href="http://web.archive.org/web/20120826045156/http://www.example.com/test.html" rel="nofollow">http://www.example.com/test.html</a> :: &gt;top_level&lt; :: line 27" data: no]
+</pre>
+<p>Any thoughts on how to make this work?  Thanks!
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>Ben Marklein</cite></li>
+ <li>Posted: <time datetime="2006-05-24T23:33:24+00:00">2006/05/24 11:33 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4511">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4511" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>7</a>
+</p>
+<blockquote cite="./Dean Edwards - Prototype and Base_files/saved_resource">
+<p>which is a combination of jQuery, Base, and Prototype-enhanced Array notation</p>
+<address><a href="./Dean Edwards - Prototype and Base_files/saved_resource">Comment by John Resig</a></address>
+</blockquote>
+<p><a href="http://web.archive.org/web/20120826045156/http://digg.com/submit?phase=2&url=http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4511">Digg</a>,
+&nbsp;<a href="http://web.archive.org/web/20120826045156/http://del.icio.us/post?url=http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4511">Del.icio.us</a>,&nbsp;<a href="http://web.archive.org/web/20120826045156/http://ma.gnolia.com/bookmarklet/add?url=http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4511">Ma.gnolia</a> <img src="./Dean Edwards - Prototype and Base_files/icon_razz.gif" alt=":-P" class="wp-smiley"> </p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-05-25T00:42:02+00:00">2006/05/25 12:42 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4512">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4512" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>8</a>
+</p>
+<p>@Ben Marklein – When you extend an object you are adding to its properties. When you extend a class you are creating a new class. In your example <code>MyDiv</code> is not a constructor function. It is an object.</p>
+<p>@Ben Newman – single inheritance <em>is</em> the most natural thing in the World. <img src="./Dean Edwards - Prototype and Base_files/icon_wink.gif" alt=";-)" class="wp-smiley">
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-05-25T00:56:47+00:00">2006/05/25 12:56 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4514">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4514" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>9</a>
+</p>
+<p>Thanks.  So is there a way to accomplish what I’m trying to do?  Calling “new HTMLDivElement()” results in an error, “document.createElement(‘div’)” is the only way I know of that works.  So, is it possible to create a “subclass” of a DOM class like HTMLDivElement?  Thanks again!
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>Ben Marklein</cite></li>
+ <li>Posted: <time datetime="2006-05-25T02:26:24+00:00">2006/05/25 2:26 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4527">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4527" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>10</a>
+</p>
+<p>@Ben M – No. It’s not possible.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-05-25T10:51:58+00:00">2006/05/25 10:51 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4559">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4559" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>11</a>
+</p>
+<p>It seems like everyone’s looking for a better Javascript class declaration/inheritance model at the same time. I just started developing my own solution a few days ago. I plan on making an initial release available for everyone to criticize soon (possibly this weekend). It will support/enforce abstract methods, final methods, static methods/values, static initializers, interfaces (interfaces can extend multiple interfaces and classes can implement multiple interfaces; errors thrown when class is declared if it does not fully implement all interfaces), etc. Here’s a preview of what it looks like to create classes with my library (Dean, I hope you don’t mind that stole the name ‘base’ as a reference to the base version of an overriding method):</p>
+<pre class="javascript highlight"><span class="comment">// interfaces require that you provide dummy functions... </span>
+<span class="comment">// this is to force you to put some possibly useful info about how the</span>
+<span class="comment">// implementations are expected to behave</span>
+$interface(<span class="string">"Shape"</span>, {
+&nbsp;&nbsp;getPerimeter: <span class="keyword">function</span>() {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> Number();
+&nbsp;&nbsp;},
+
+&nbsp;&nbsp;getArea: <span class="keyword">function</span>() {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> Number();
+&nbsp;&nbsp;}
+});
+
+$interface(<span class="string">"Named"</span>, {
+&nbsp;&nbsp;getName: <span class="keyword">function</span>() {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> String();
+&nbsp;&nbsp;}
+});
+
+$class(<span class="string">"Something"</span>, {
+&nbsp;&nbsp;getName: <span class="keyword">function</span>() {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> $class.typeOf(<span class="keyword">this</span>);
+&nbsp;&nbsp;}
+});
+
+$class(<span class="string">"Rectangle"</span>, {
+&nbsp;&nbsp;<span class="comment">// just an example that extending a class can satisfy requirements</span>
+&nbsp;&nbsp;<span class="comment">// of implementing an interface method</span>
+&nbsp;&nbsp;$extends: Something,
+&nbsp;&nbsp;$implements: [Named, Shape],
+
+&nbsp;&nbsp;$<span class="global">constructor</span>: <span class="keyword">function</span> (width, height) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>._width = width;
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>._height = height;
+&nbsp;&nbsp;},
+
+&nbsp;&nbsp;<span class="comment">// example of a final method... can't be overridden by an </span>
+&nbsp;&nbsp;<span class="comment">// inheriting class</span>
+&nbsp;&nbsp;getWidth: $final(<span class="keyword">function</span>() {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="keyword">this</span>._width;
+&nbsp;&nbsp;}),
+
+&nbsp;&nbsp;getHeight: $final(<span class="keyword">function</span>() {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="keyword">this</span>._height;
+&nbsp;&nbsp;}),
+
+&nbsp;&nbsp;getPerimeter: <span class="keyword">function</span>() {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="keyword">this</span>.getWidth() * <span class="number">2</span> + <span class="keyword">this</span>.getHeight() * <span class="number">2</span>;
+&nbsp;&nbsp;},
+
+&nbsp;&nbsp;getArea: <span class="keyword">function</span>() {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="keyword">this</span>.getWidth() * <span class="keyword">this</span>.getHeight();
+&nbsp;&nbsp;}
+});
+
+$class(<span class="string">"Square"</span>, {
+&nbsp;&nbsp;$extends: Rectangle,
+
+&nbsp;&nbsp;<span class="comment">// this.$base is available in any member function that overrides</span>
+&nbsp;&nbsp;<span class="comment">// a base class's function</span>
+&nbsp;&nbsp;$<span class="global">constructor</span>: <span class="keyword">function</span> (width) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.$<span class="base2">base</span>(width, width);
+&nbsp;&nbsp;},
+
+&nbsp;&nbsp;<span class="comment">// example of a static property (accessed as Square.createSquare)</span>
+&nbsp;&nbsp;createSquare: $static(<span class="keyword">function</span>(width) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="keyword">new</span> Square(width);
+&nbsp;&nbsp;}),
+
+&nbsp;&nbsp;<span class="comment">// static initializer example</span>
+&nbsp;&nbsp;$static: <span class="keyword">function</span>() {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="special">alert</span>(<span class="string">"Square has been declared"</span>);
+&nbsp;&nbsp;}
+});
+</pre>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.uselesspickles.com/" rel="external" class="url">Jeff Lau</a></cite></li>
+ <li>Posted: <time datetime="2006-05-26T17:43:01+00:00">2006/05/26 5:43 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4561">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4561" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>12</a>
+</p>
+<p>@Jeff – this looks kind of interesting. Can you ping me when it is released?
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-05-26T19:05:51+00:00">2006/05/26 7:05 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4564">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4564" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>13</a>
+</p>
+<p>@Ben M: There actually is a way to do what you want.  You have to use the DOM object as the prototype for your constructor function, and add all the extra properties to that object before calling the constructor.  The problem is that DOM objects aren’t just their lists of properties — they have some internals that can’t be copied into your new object.  I’ve gotten this to work in my scheme.  See <a href="http://web.archive.org/web/20120826045156/http://groupspace.org/devben/proto-svn/demo">http://groupspace.org/devben/proto-svn/demo</a>, and check out the examples on mimicking DOM objects.  Unfortunately, this will never work in Safari, for completely brain-dead reasons.  Safari requires that anything inserted into the DOM has to have been created by a native function, like document.createElement, so you’re stuck creating your DIV in the usual way, adding some properties to it, and document.appendChild’ing it.  No chance for inheritance <img src="./Dean Edwards - Prototype and Base_files/icon_sad.gif" alt=":(" class="wp-smiley"> </p>
+<p>@Jeff:  Good luck with this.  Your syntax is nice, but I’ll be interested to see how much code the implementation requires!  There are some hidden thorns in this kind of project, and I’ll be happy to share them once you’ve released something <img src="./Dean Edwards - Prototype and Base_files/icon_smile.gif" alt=":)" class="wp-smiley">
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dev.rubyonrails.org/ticket/4060" rel="external" class="url">Ben Newman</a></cite></li>
+ <li>Posted: <time datetime="2006-05-27T00:00:14+00:00">2006/05/27 12:00 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4636">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4636" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>14</a>
+</p>
+<p>It will be more interesting to be able to add more than interface at once ?</p>
+<p>FlyingFish = Fish.extend();
+FlyingFish.implement(Bird,OtherInterface[,...]);</p>
+<p>Base.implement = function() {
+	for( var i = 0; i &lt; arguments.length; i++ ) {
+		_interface = arguments[i];
+		if (_interface instanceof Function) _interface = _interface.prototype;
+		this.prototype.extend(_interface);
+	}
+};
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.tinestudio.com/" rel="external" class="url">Nicolas BUI</a></cite></li>
+ <li>Posted: <time datetime="2006-05-29T12:30:24+00:00">2006/05/29 12:30 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4637">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4637" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>15</a>
+</p>
+<p>Sorry for the previous unreadable code</p>
+<pre class="javascript highlight"><span class="base2">Base</span>.<span class="base2">implement</span> = <span class="keyword">function</span>() {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">arguments</span>.length; i++ ) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_interface = <span class="keyword">arguments</span>[i];
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (_interface <span class="keyword">instanceof</span> Function) _interface = _interface.<span class="global">prototype</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.<span class="global">prototype</span>.<span class="base2">extend</span>(_interface);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+};
+</pre>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.tinestudio.com/" rel="external" class="url">Nicolas BUI</a></cite></li>
+ <li>Posted: <time datetime="2006-05-29T12:33:26+00:00">2006/05/29 12:33 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4680">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4680" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>16</a>
+</p>
+<p>Mmm. I’m thinking of getting rid of that <code>implement</code> method now. I was a bit hasty introducing it (I was seduced by my own code sample). I don’t want to encourage multiple inheritance anyway. <img src="./Dean Edwards - Prototype and Base_files/icon_wink.gif" alt=";-)" class="wp-smiley"> </p>
+<p>I now have constructor functions that can also be used to cast foreign objects. That means that the FlyingFish example is still possible but now the code looks like this:</p>
+<pre class="javascript highlight"><span class="keyword">var</span> FlyingFish = Fish.<span class="base2">extend</span>()
+Bird(FlyingFish.<span class="global">prototype</span>);
+</pre>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-05-30T14:00:53+00:00">2006/05/30 2:00 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4681">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4681" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>17</a>
+</p>
+<p>I’m curious to see how you go about distinguishing constructor arguments from foreign objects when you call Bird() in your example above.</p>
+<p>Would you be willing to make your latest code available in some form?  This file is getting a little stale, judging by your recent comments: <a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/base/Base.js">http://dean.edwards.name/base/Base.js</a></p>
+<p>Ben
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dev.rubyonrails.org/ticket/4060" rel="external" class="url">Ben Newman</a></cite></li>
+ <li>Posted: <time datetime="2006-05-30T16:02:11+00:00">2006/05/30 4:02 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4682">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4682" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>18</a>
+</p>
+<p>@Ben – foreign objects is probably the wrong term. I mean that constructor functions can be used to cast objects too. I made the following change to <code>Base.extend</code>:</p>
+<pre class="javascript highlight"><span class="keyword">var</span> klass = <span class="keyword">function</span>() {
+&nbsp;&nbsp;<span class="keyword">if</span> (!<span class="base2">Base</span>._prototyping) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (<span class="keyword">this</span> <span class="keyword">instanceof</span> klass) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="global">constructor</span>.apply(<span class="keyword">this</span>, <span class="keyword">arguments</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;} <span class="keyword">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (<span class="keyword">arguments</span>.length) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="base2">extend</span>.call(<span class="keyword">arguments</span>[<span class="number">0</span>], _prototype);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;}
+};
+</pre>
+<p>I’ll update the development area later. In the meantime, I’ve mailed you the latest version of Base.js. Although I’ve made some internal changes, externally all the interfaces behave the same.</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-05-30T16:10:27+00:00">2006/05/30 4:10 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4882">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4882" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>19</a>
+</p>
+<p>@Dean – I finally released an initial version of my library in a <a href="http://web.archive.org/web/20120826045156/http://www.uselesspickles.com/blog/2006/06/02/java-like-object-oriented-code-in-javascript/">blog entry</a>. Please excuse my default WordPress theme :).</p>
+<p>@Ben – Yeah, it’s a lot of code. My focus was useful functionality and aiding the development process of object-oriented code with helpful error detection/reporting. Once the functionality of my library settles down, I’ll start focusing on simplifying logic and reducing the file size. I could probably even have a smaller “production” version that skips error detection that is only useful during development. I guess it’s time for you to burst my bubble with those thorns you were speaking of :(.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.uselesspickles.com/" rel="external" class="url">Jeff Lau</a></cite></li>
+ <li>Posted: <time datetime="2006-06-03T06:37:53+00:00">2006/06/03 6:37 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4897">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4897" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>20</a>
+</p>
+<p>@Jeff – I had a quick look and it looks well thought out. You can reduce file size by getting rid of those <code>// #####</code> comment separators.  I’ll play with your library a bit more later. See if there’s anything I can steal from it. <img src="./Dean Edwards - Prototype and Base_files/icon_wink.gif" alt=";-)" class="wp-smiley">
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-06-03T11:17:54+00:00">2006/06/03 11:17 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4911">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4911" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>21</a>
+</p>
+<p>@Dean – Duh, why didn’t I think of that before? I’m still in a transition from application development (in C++) where comments have no effect on the size or performance of the application.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.uselesspickles.com/" rel="external" class="url">Jeff Lau</a></cite></li>
+ <li>Posted: <time datetime="2006-06-03T15:39:13+00:00">2006/06/03 3:39 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4949">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4949" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>22</a>
+</p>
+<p>all your Base are belong to us
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>webman</cite></li>
+ <li>Posted: <time datetime="2006-06-04T08:36:00+00:00">2006/06/04 8:36 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4958">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4958" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>23</a>
+</p>
+<p>@Jeff:<br>
+kepp your comments for the development since they improve readability. For Production release you can use deans packer or kaes <a href="http://web.archive.org/web/20120826045156/http://verens.com/demos/jsquash/jsquash.html">jsquash</a>. These programs cut out comments and useless spaces and then compresss your source. Currently Kae and I are working on a <a href="http://web.archive.org/web/20120826045156/https://sourceforge.net/projects/jsquash/">C++ Version</a> of his algorithm since the JavaScript implementation is not really fast.</p>
+<p>For you as a C++ Developer it is a bit like compiling – you just don’t need to compile for testing. The Packer is a lot faster than jsquash but jsquash usually is a bit more efficient.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://blog.cdonat.de/" rel="external" class="url">Christof Donat</a></cite></li>
+ <li>Posted: <time datetime="2006-06-04T12:30:34+00:00">2006/06/04 12:30 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4959">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4959" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>24</a>
+</p>
+<p>Sorry for posting again, but while reading jeffs code I found one advice: If you can leave our the curly braces, do so. I don’t know what the Packer does, but jsquash can not do that for you. Instead of:</p>
+<pre>  if (obj2) {
+    for (var i in obj2) {
+      if (!result.hasOwnProperty(i)) {
+        result[i] = obj2[i];
+      }
+    }
+  }
+</pre>
+<p>use</p>
+<pre>  if (obj2)
+    for (var i in obj2)
+      if (!result.hasOwnProperty(i))
+        result[i] = obj2[i];
+</pre>
+<p>The first step of jsquash gives you</p>
+<pre>if(obj2){for(var i in obj2){if(!result.hasOwnProperty(i)){result[i]=obj2[i];}}}
+</pre>
+<p>for the first code and for the second</p>
+<pre>if(obj2)for(var i in obj2)if(!result.hasOwnProperty(i))result[i]=obj2[i];
+</pre>
+<p>It is only six bytes less, but through your whole code it will summ up. The actual compression is of course done afterwards, but usually longer input produces longer output if the entropy is the same.</p>
+<p>you can also save some bytes by using object literals for the prototypes:</p>
+<pre>$class.prototype = {
+  getName: function() {...},
+  getConstructor: function() {...},
+  ...
+}
+</pre>
+<p>Hope this helps.</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://blog.cdonat.de/" rel="external" class="url">Christof Donat</a></cite></li>
+ <li>Posted: <time datetime="2006-06-04T12:57:19+00:00">2006/06/04 12:57 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment4979" class="trackback">
+<p class="permalink">
+<span>Comment: #</span>25</p>
+<p><strong>Forbedring af nedarvning i Prototype</strong>
+
+Dem der har prøvet at arbejde med Prototype ved det formentlig allerede — nedarvning fungerer lidt klodset:
+
+var Subklasse = Class.create();
+
+Subklasse.prototype = Object.extend(Object.extend({}, Grundklasse.prototype), {
+
+    initialize…</p>
+<footer>
+<ul class="meta">
+ <li class="author">Trackback by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.kruse-net.dk/2006/06/04/forbedring-af-nedarvning-i-prototype/" rel="external" class="url">Kruse-Net.dk</a></cite></li>
+ <li>Posted: <time datetime="2006-06-04T21:05:33+00:00">2006/06/04 9:05 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment5024">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment5024" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>26</a>
+</p>
+<p>@webman – I was wondering how long it would take someone to say <a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment4949">that</a>. <img src="./Dean Edwards - Prototype and Base_files/icon_smile.gif" alt=":-)" class="wp-smiley">
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-06-05T18:47:32+00:00">2006/06/05 6:47 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment5332">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment5332" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>27</a>
+</p>
+<p>Great, great library!  Thanks!</p>
+<p>Question though: if you use implement to cause object X to implement object Y, then X instanceof Y seems to return false.  This is kind of important and I can’t figure out any way to determine if an object has been extended in this way.  Can you point me to a solution for this issue?  Thanks again.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>Joshua Frank</cite></li>
+ <li>Posted: <time datetime="2006-06-15T18:41:33+00:00">2006/06/15 6:41 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment5336">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment5336" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>28</a>
+</p>
+<p>@Joshua – Base does not support true multiple inheritance. That is beyond the bounds of JavaScript. The <code>implement</code> method will apply an interface to a class but there is no real connection between the objects after that. Indeed, if you extend the interface again, the target class does not inherit the new changes.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-06-15T19:49:57+00:00">2006/06/15 7:49 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment5651">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment5651" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>29</a>
+</p>
+<p>Hmm.  Bummer.  I have kludged around this by adding the following to Base.implement:</p>
+<pre>if(!this.prototype.implementedInterfaces)
+    this.prototype.implementedInterfaces = [];
+    this.prototype.implementedInterfaces.push(_interface);
+</pre>
+<p>And then I wrote up a custom instanceof function that would check to see if the interface was in the implementedInterfaces array:</p>
+<pre>function instanceOf(type)
+  {
+    //if we inherit directly
+    if(this instanceof type)
+      //we're indeed an instance of the type
+      return true;
+    //for each implemented interface
+    var ret = $A(this.implementedInterfaces).detect
+    (
+     function(interface)
+	{
+	  if(interface == type.prototype || interface instanceof type)
+	  return true;
+	}
+     );
+   return (ret != null);
+}
+</pre>
+<p>  This works ok (relying for the moment on prototype, which others may not want to do), but I’m sure it could be much improved on.  And the big drawback is replacing one of the Base methods, which is asking for breakage down the road.</p>
+<p>So I guess the questions are: can you think of a more elegant solution, and is this something worth incorporating into the library?</p>
+<p>Incidentally, I’m inclined to view multiple inheritance with a yuk, as you say, but multiple <i>interface</i> implementation is quite nice.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>Joshua Frank</cite></li>
+ <li>Posted: <time datetime="2006-06-20T18:06:22+00:00">2006/06/20 6:06 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment6115">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment6115" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>30</a>
+</p>
+<p>I began using base for a project a few days ago.  The syntax simplicity is great–very easy to remember, so I never have to reference any documention.  For a low-level paradigm like class inheritance, I believe this i essential.  A concern of mine with base is the implied usage of its syntax for defining variables.  Defining variables alongside functions does not work as it may in other languages.</p>
+<p>Here is an example that demonstrates the problem:</p>
+<pre>var Example = Base.extend(
+//instance
+{
+   //this doesn't work--must use constructor
+   loved : "Dean",
+   what_i_like_to_shout: this.loved.toUpperCase() + " I LOVE YOU!!!!"
+},
+//static
+{
+   //depencies like this don't work
+   ChildClass : Base.extend(),
+   GrandchildClass : ChildClass.extend(),
+//init is required for resolve dependencies:
+//the following is required so that definitions resolve...
+// var obj = {Prop: val, Dependent : Prop }
+//makes Dependent undefined, so we have to declare dependent
+// members in the constructor
+init: function()
+{
+   this.ChildClass = Base.extend();
+   this.GrandchildClass = ChildClass.extend();
+}
+});
+</pre>
+<p>This is how I use your library in light of the dependence issue:</p>
+<pre>//an example class that makes no sense!
+var Cummings = Person.extend(
+//instance functions/data
+{
+   //###  Variable Declarations ###//
+   //variables declared by Cummings
+   vision          : null,
+
+   //###  Function Definitions ###//
+   constructor : function(win)
+   {
+      base();
+      //### Variable Definitions ###//
+      this.name = "E.E. Cummings"; //superclass property
+      this.vision = true; //my property
+   },
+   otherfunc : function(){}
+
+},
+//static functions/data
+{
+   //### Child Class and Variable Declarations ###//
+   ChildClass   : null,
+
+//the following is required so that definitions resolve...
+// var obj = {Prop: val, Dependent : Prop }
+//makes Dependent undefined, so we have to declare
+// dependent members in the constructor
+init : function()
+{
+   //### Child Class and Variable Definitions ###//
+   this.ChildClass = Base.extend();
+}
+});
+</pre>
+<p>Or maybe I just like C++  too much :&gt;
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.openbookindex.com/" rel="external" class="url">red daly</a></cite></li>
+ <li>Posted: <time datetime="2006-06-30T06:52:27+00:00">2006/06/30 6:52 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment6117">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment6117" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>31</a>
+</p>
+<p>Dean, thanks for this awesome library. I’m just beginning to appreciate the power and simplicity of it.</p>
+<p><code>this.base()</code> doesn’t seem to be available in constructor methods. Is this a bug or an omission by design?
+</p>
+<p>For example, </p>
+<pre>var Node = Base.extend({
+  id: null,
+  constructor: function(id) {
+    this.id = id;
+  }
+});
+var Tree = Node.extend({
+  constructor: function(id) {
+    this.base(id);
+  }
+});
+
+var tree = new Tree("MyTree");
+</pre>
+<p>In the above, <code>tree</code> ends up with a <code>null</code> <code>id</code> property as if the <code>this.base(id)</code> had never been called.</p>
+<p>Any insight would be much appreciated.</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.audiblepop.com/" rel="external" class="url">Justin Makeig</a></cite></li>
+ <li>Posted: <time datetime="2006-06-30T07:30:37+00:00">2006/06/30 7:30 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment6120">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment6120" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>32</a>
+</p>
+<p>@Justin – I just tried the exact same code as you posted above and it works fine. <img src="./Dean Edwards - Prototype and Base_files/icon_confused.gif" alt=":-?" class="wp-smiley"> </p>
+<p>Also, you don’t need to specify the <code>constructor</code> in the Tree class. But it works the same either way.</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-06-30T11:21:37+00:00">2006/06/30 11:21 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment6136">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment6136" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>33</a>
+</p>
+<p>@Dean – Sorry about the confusion. You are completely correct about the inheritance of constructors. In simplifying my example above from my original code, I did not copy the incorrectly spelled <code>constuctor</code> function in <code>Node</code> definition. My original code works fine with that correction.</p>
+<p>Any ideas about if and when you’ll release the version you’ve hinted about that can extend <code>HTMLElement</code> objects? I’m using some kludgy mix-in logic to accomplish this right now. I’m very curious to see how you plan to tackle this.</p>
+<p>Again, thanks for your help and keep up the good work.</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.audiblepop.com/" rel="external" class="url">Justin Makeig</a></cite></li>
+ <li>Posted: <time datetime="2006-06-30T21:21:32+00:00">2006/06/30 9:21 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment6613">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment6613" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>34</a>
+</p>
+<p>Are you able to use inherited properties in subclass methods?  In the simple example below, if I call class2.method(), then the correct value is shown, but if I call class2.method2()
+ then the popup says “undefined”.</p>
+<pre class="javascript highlight"><span class="keyword">var</span> Class1 = <span class="base2">Base</span>.<span class="base2">extend</span>({
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="global">constructor</span>: <span class="keyword">function</span>()
+&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.inherit = <span class="keyword">true</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;},
+
+&nbsp;&nbsp;&nbsp;&nbsp;inherit: <span class="keyword">null</span>,
+
+&nbsp;&nbsp;&nbsp;&nbsp;method: <span class="keyword">function</span>()
+&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="special">alert</span>(<span class="keyword">this</span>.inherit);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+});
+
+<span class="keyword">var</span> Class2 = Class1.<span class="base2">extend</span>({
+
+&nbsp;&nbsp;&nbsp;&nbsp;method2: <span class="keyword">function</span>()
+&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="special">alert</span>(<span class="keyword">this</span>.inherit);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+});
+
+<span class="keyword">var</span> class2 = <span class="keyword">new</span> Class2();
+class2.method(); <span class="comment">// shows "true"</span>
+class2.method2(); <span class="comment">// shows "undefined"</span>
+</pre>
+<p>I’m relatively new to JavaScript, and am more of a Java programmer, so when I think inheritance, inherited properties should be able to be used in any subclass’ methods.  Am I assuming incorrectly?
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>Russ Zumwalt</cite></li>
+ <li>Posted: <time datetime="2006-07-13T17:57:38+00:00">2006/07/13 5:57 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment6617">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment6617" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>35</a>
+</p>
+<p>@Russ – I just tried the code above and got these results:</p>
+<pre class="javascript highlight"><span class="keyword">var</span> class2 = <span class="keyword">new</span> Class2();
+class2.method(); <span class="comment">// shows "true"</span>
+class2.method2(); <span class="comment">// shows "true"</span>
+</pre>
+<p>So there must be a typo somewhere in your original code.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-07-13T18:35:20+00:00">2006/07/13 6:35 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment6637">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment6637" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>36</a>
+</p>
+<p>I apologize for that.  After some more debugging, the root cause of the problem was that class.method2() was getting invoked indirectly.  I was using the Event.observe method from the Prototype library to attach additional behavior to an HTML element.  Basically, “this” wasn’t what I wanted it to be, those Java habits die hard :-/.  I found a workaround, but thanks for the help, hope it didn’t take too much of your time…
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>Russ Zumwalt</cite></li>
+ <li>Posted: <time datetime="2006-07-14T03:30:42+00:00">2006/07/14 3:30 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment6983">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment6983" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>37</a>
+</p>
+<p>Hi Dean and all,</p>
+<p>I’ve been using Base for a few days and I’m very happy with it!</p>
+<p>I have a problem with inherited static members though:</p>
+<pre class="javascript highlight">        <span class="keyword">var</span> class1 = <span class="base2">Base</span>.<span class="base2">extend</span>({
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sfunc: <span class="keyword">function</span>() {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="special">alert</span>(<span class="string">"static function for class1"</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">var</span> class2 = class1.<span class="base2">extend</span>({
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class1.sfunc();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class2.sfunc();  <span class="comment">// class2.sfunc is not a function</span>
+</pre>
+<p>Looking at the code, I guess this is to be expected… so what would you think of adding this feature?
+</p>
+<p>Cheers,
+    Andrea
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.webcom.it/blog" rel="external" class="url">Andrea Campi</a></cite></li>
+ <li>Posted: <time datetime="2006-07-28T23:37:30+00:00">2006/07/28 11:37 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment6985">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment6985" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>38</a>
+</p>
+<p>@Andrea – I am against adding this feature. It means that you end up with copies of data on descendant classes. Why do you want two ways to refer to a method anyway?
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-07-28T23:43:13+00:00">2006/07/28 11:43 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment7258">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment7258" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>39</a>
+</p>
+<p>@Joshua –
+I think this is the most elegant solution yet, with that code you can easily determine extension of the required object. Don’t bother thinking about the implement method or going far away imagining the complex options.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.serioussoft.com/" rel="external" class="url">Jim</a></cite></li>
+ <li>Posted: <time datetime="2006-08-20T14:56:14+00:00">2006/08/20 2:56 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment7476">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment7476" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>40</a>
+</p>
+<p>It seems that istanceof operator don’t work in IE 4.0,
+I made ,using JSL(for array.prototype extension),
+a little fix,changing istanceof in typeof, since you use istanceof only against Function.</p>
+<p>examples:</p>
+<pre>Base.implement = function(_interface) {
+	if (typeof(_interface) === "function") _interface = _interface.prototype;//work in IE 4 and is the same.
+	//if (_interface instanceof Function) _interface = _interface.prototype;
+	this.prototype.extend(_interface);
+};
+</pre>
+<p>there is 3 replace to do and after that your Base work on IE 4.0 (!!) <img src="./Dean Edwards - Prototype and Base_files/icon_wink.gif" alt=";)" class="wp-smiley"> </p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://mykenta.blogspot.com/" rel="external" class="url">kentaromiura</a></cite></li>
+ <li>Posted: <time datetime="2006-08-31T15:53:47+00:00">2006/08/31 3:53 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment7478">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment7478" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>41</a>
+</p>
+<p>@kentaromiura – <a href="http://web.archive.org/web/20120826045156/http://www.uselesspickles.com/blog/2006/06/02/javascripts-regex-has-an-identity-crisis/"><code>typeof</code> doesn’t always work</a>. Annoying isn’t it? I would like to get rid of the <code>instanceof</code> operators in Base as Mac IE5 does not support it either (I am less concerned with IE4.0).
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-08-31T16:45:16+00:00">2006/08/31 4:45 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment7482" class="trackback">
+<p class="permalink">
+<span>Comment: #</span>42</p>
+<p>[...] An easy way to inherit a class, call the parent’s constructor, call a parent’s version of a method, and to set members as protected, private, or public. There are examples that go towards achieve this; but, native support is magnitudes of an improvement just for the sake of improved readability. (It would be really sweet to have reflection.) For what Mozilla is planning for Javascript 2.0, a more traditional class support will be added. [...]</p>
+<footer>
+<ul class="meta">
+ <li class="author">Pingback by: <cite><a href="http://web.archive.org/web/20120826045156/http://moronicbajebus.com/?p=96" rel="external" class="url">Better Javascript : Mo Jebus</a></cite></li>
+ <li>Posted: <time datetime="2006-08-31T21:41:44+00:00">2006/08/31 9:41 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment7483">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment7483" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>43</a>
+</p>
+<p>didn’t even know it ;P
+thanks for pointing out this, ain’t concerned too in IE4, it was just for the sake of it <img src="./Dean Edwards - Prototype and Base_files/icon_wink.gif" alt=";)" class="wp-smiley">
+i’ll work on it.
+bye!
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://mykenta.blogspot.com/" rel="external" class="url">kentaromiura</a></cite></li>
+ <li>Posted: <time datetime="2006-08-31T21:56:21+00:00">2006/08/31 9:56 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment7488">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment7488" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>44</a>
+</p>
+<pre>function isFunction(x){
+alert(typeof(x)==="function" &amp;&amp; (typeof(x.toSource)==="undefined" || x.toSource().charAt(0)!="/"))
+}
+</pre>
+<p>tested in IE 4.0 , IE 6.0, NN 7.2(is the same as FF 1.0) FF 1.5.0.1 and Opera 8.51, if you can test on IE Mac i’m pretty sure that works <img src="./Dean Edwards - Prototype and Base_files/icon_wink.gif" alt=";)" class="wp-smiley"> </p>
+<pre>isFunction(new RegExp()) -&gt; false
+isFunction(function(){}) -&gt; true
+</pre>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://mykenta.blogspot.com/" rel="external" class="url">kentaromiura</a></cite></li>
+ <li>Posted: <time datetime="2006-09-01T07:46:24+00:00">2006/09/01 7:46 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment7589">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment7589" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>45</a>
+</p>
+<p>Hi dean.</p>
+<p>Simply loving it. I tried to write my own implementation of a nice inheritance lib for prototype, but i ran into yours searching for solutions of bugfixes for my own lib.</p>
+<p>This fits my needs exactly and i’m happy not to have to spend more hours on things i shouldn’t be worrying about <img src="./Dean Edwards - Prototype and Base_files/icon_smile.gif" alt=":)" class="wp-smiley"> Next time i’ll check your blog (among others) before trying to fix things myself <img src="./Dean Edwards - Prototype and Base_files/icon_wink.gif" alt=";)" class="wp-smiley"> </p>
+<p>Keep up the good work.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>drm</cite></li>
+ <li>Posted: <time datetime="2006-09-07T22:42:17+00:00">2006/09/07 10:42 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment7819">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment7819" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>46</a>
+</p>
+<p>Hi Dean,</p>
+<p>Great piece of code. You’re making everyone’s life much easier and thanks a lot for that.</p>
+<p>I started playing with Base then and noticed something that I can’t logically explain. The “delete” javascript keyword doesn’t set properties to undefined on extended objects but resets the property value back to its original one set in the object literal passed to Base.extend.</p>
+<p>The following example alerts “value 2″ first, but instead of “undefined” it alerts “value 1″ the second time.</p>
+<p>Is this a bug, or am I missing something ?</p>
+<pre class="javascript highlight"><span class="keyword">var</span> Foo = <span class="base2">Base</span>.<span class="base2">extend</span>({
+&nbsp;&nbsp;&nbsp;&nbsp;test: <span class="string">'value 1'</span>
+});
+
+<span class="keyword">var</span> f = <span class="keyword">new</span> Foo();
+f.test = <span class="string">'value 2'</span>;
+<span class="special">alert</span>(f.test);
+<span class="keyword">delete</span> f.test;
+<span class="special">alert</span>(f.test);
+</pre>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://cyrildoussin.com/" rel="external" class="url">Cyril Doussin</a></cite></li>
+ <li>Posted: <time datetime="2006-09-13T00:21:29+00:00">2006/09/13 12:21 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment7821">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment7821" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>47</a>
+</p>
+<p>@Cyril – This is not a bug. This is standard JavaScript at work. Inheritance is provided by a chain of objects (prototypes). When you delete a property from a descendant class you will revert back to the value defined on the object’s ancestor. No way round that and nor should there be. You can always set the property to <code>null</code> instead.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/" rel="external" class="url">-dean</a></cite></li>
+ <li>Posted: <time datetime="2006-09-13T00:42:25+00:00">2006/09/13 12:42 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment7825">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment7825" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>48</a>
+</p>
+<p>Indeed, I had refered to the Mozilla doc which doesn’t mention anything regarding inheritance and just says delete sets properties to undefined.</p>
+<p>Thanks for (very quickly) clarifying this. And thansk again for Base !
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://cyrildoussin.com/" rel="external" class="url">Cyril Doussin</a></cite></li>
+ <li>Posted: <time datetime="2006-09-13T02:18:09+00:00">2006/09/13 2:18 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment8866">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment8866" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>49</a>
+</p>
+<p>where do u take the test
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>huh</cite></li>
+ <li>Posted: <time datetime="2006-10-09T23:04:09+00:00">2006/10/09 11:04 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment8884">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment8884" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>50</a>
+</p>
+<p><a href="http://web.archive.org/web/20120826045156/http://mykenta.blogspot.com/2006/10/observer-subscriber-in-base.html">A simple Observer / Subscriber implementation using Base</a></p>
+<p>:bye:
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://mykenta.blogspot.com/" rel="external" class="url">kentaromiura</a></cite></li>
+ <li>Posted: <time datetime="2006-10-10T12:12:29+00:00">2006/10/10 12:12 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment8969">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment8969" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>51</a>
+</p>
+<p>Hi,</p>
+<p>I’ve found if your method body includes the word “base” _anywhere_ (ie. in a comment), it will be treated as an override.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>mr.a</cite></li>
+ <li>Posted: <time datetime="2006-10-15T00:17:04+00:00">2006/10/15 12:17 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment8970">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment8970" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>52</a>
+</p>
+<p>Or maybe not… sorry for the comment, i’m still checking, but it should be my bug…
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>mr.a</cite></li>
+ <li>Posted: <time datetime="2006-10-15T00:21:25+00:00">2006/10/15 12:21 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment9365" class="trackback">
+<p class="permalink">
+<span>Comment: #</span>53</p>
+<p>[...]  Dean Edwards: Prototype and Base Classical Inheritance in JavaScript OOP in JS, Part 1 : Public/Private Variables and Methods Javascript Closures  Es gibt aber auch ein paar Frameworks die die n?en Funktionen bereitstellen: ActiveWidgets Prototype JavaScript Framework: Class-style OO, Ajax, and more [...]</p>
+<footer>
+<ul class="meta">
+ <li class="author">Pingback by: <cite><a href="http://web.archive.org/web/20120826045156/http://forum.jswelt.de/javascript/34414-javascript-vererbung-2.html#post226684" rel="external" class="url">JavaScript und Vererbung - Seite 2 - jswelt - Forum (Javascript, PHP, MySQL, AJAX, Webdesign)</a></cite></li>
+ <li>Posted: <time datetime="2006-10-23T16:18:31+00:00">2006/10/23 4:18 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment9438">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment9438" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>54</a>
+</p>
+<p>test
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://test/" rel="external" class="url">test</a></cite></li>
+ <li>Posted: <time datetime="2006-10-25T19:02:48+00:00">2006/10/25 7:02 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment9746">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment9746" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>55</a>
+</p>
+<p>So how would one get private variables used in the following fashion:</p>
+<p>var f = function () {
+	var private = ‘abc’;
+	this.print = function () {
+		alert(private);
+	}
+}</p>
+<p>Working under Base? Using the constructor/this.extend combo illustrated in the original post does not seem to generate any disco.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite>Sam</cite></li>
+ <li>Posted: <time datetime="2006-11-02T08:10:34+00:00">2006/11/02 8:10 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment9748">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment9748" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>56</a>
+</p>
+<p>Is it intentional (or unavoidable..? now that I have thought about it a bit) that the keyword ‘this’ in the constructor points to the static class definition? the following resets the class definition of options (Test.Base.options), took me a while to figure out just what was happening with my class heirarchy..!</p>
+<p>at the very least, a warning to the unwary: dont do the following..</p>
+<pre>var Test = {}
+Test.Base = Base.extend({
+constructor: function (options)
+{
+    this.options = options
+}
+},
+{
+    options: {name: "Test.Base"}
+})
+
+new Test.Base("blah blah")
+</pre>
+<p>following this, Test.base.options == “blah blah”
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://blackisha.com/" rel="external" class="url">Nick Hemsley</a></cite></li>
+ <li>Posted: <time datetime="2006-11-02T08:46:01+00:00">2006/11/02 8:46 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment97862">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment97862" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>57</a>
+</p>
+<p>Great work,  Base solves a lot of problems, and a great name… makes me think of “Base Class”… it works for me.  </p>
+<p>I have been doing a lot with prototype and i think this article would be helpful for other readers… <a href="http://web.archive.org/web/20120826045156/http://positionabsolute.net/blog/2007/04/javascript-class.php">http://positionabsolute.net/blog/2007/04/javascript-class.php</a></p>
+<p>A “trick” that i have found to work quite well for your “Super” dillema is to statically instantiate the “super” class’s method in the sub’s function</p>
+<p>Super.prototype.initialize.apply(this, arguments);</p>
+<p>You can do that with any of the super’s functions to inherit its functionality, its not ‘sweet’ syntax but it gets the job done and it will inherit correctly in a sub-sub class.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://positionabsolute.net/" rel="external" class="url">Matt Foster</a></cite></li>
+ <li>Posted: <time datetime="2007-06-06T19:59:45+00:00">2007/06/06 7:59 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment118948">
+<p class="permalink">
+<a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#comment118948" rel="bookmark" title="Permanent link to this comment">
+<span>Comment: #</span>58</a>
+</p>
+<p>kepp your comments for the cadence since I myself crown readability. For Production shapable you can use deans packer or kaes jsquash. These programs cut out comments and useless spaces and heretofore compresss your source. Currently Kae and I are dynamic on a C++ Version of his algorithm since the JavaScript implementation is not forsooth fast.</p>
+<p>For you as a C++ Developer it is a bit like compiling – you just don’t commitment to round up for testing. The Packer is a lot faster precluding jsquash but jsquash usually is a bit and all equal to.
+</p>
+<footer>
+<ul class="meta">
+ <li class="author">Comment by: <cite><a href="http://web.archive.org/web/20120826045156/http://groups.msn.com/dir99999/" rel="external" class="url">Tommy Delan</a></cite></li>
+ <li>Posted: <time datetime="2007-08-28T10:09:06+00:00">2007/08/28 10:09 am</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment361972" class="trackback">
+<p class="permalink">
+<span>Comment: #</span>59</p>
+<p>[...] gegenseitig keinesfalls aus. Es muss auch nicht extra eine umfangreiche Klassenbibliothek (z.B. Dean Edwards Base Class)� verwendet werden, um klassenähnliche Konstrukte einfach definieren zu können. Jediglich 15 [...]</p>
+<footer>
+<ul class="meta">
+ <li class="author">Pingback by: <cite><a href="http://web.archive.org/web/20120826045156/http://www.stephan-baumeister.com/?p=3" rel="external" class="url">Einfache “klassische” Vererbung mit jQuery</a></cite></li>
+ <li>Posted: <time datetime="2009-09-26T22:42:01+00:00">2009/09/26 10:42 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<article id="comment376964" class="trackback">
+<p class="permalink">
+<span>Comment: #</span>60</p>
+<p>[...] Base.js :&nbsp;http://dean.edwards.name/weblog/2006/05/prototype-and-base/ [...]</p>
+<footer>
+<ul class="meta">
+ <li class="author">Pingback by: <cite><a href="http://web.archive.org/web/20120826045156/http://reiot.com/2011/03/02/javascript-inheritance-pattern/" rel="external" class="url">JavaScript Inheritance Pattern « Starting Reiot</a></cite></li>
+ <li>Posted: <time datetime="2011-03-02T13:36:37+00:00">2011/03/02 1:36 pm</time></li>
+</ul>
+</footer>
+</article>
+
+<form class="contact" action="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/2006/05/prototype-and-base/#preview" method="post">
+ <h3 id="postcomment">Leave A Comment</h3>
+ <p>Line and paragraph breaks automatic, email address never displayed. Some <abbr>HTML</abbr> <a href="http://web.archive.org/web/20120826045156/http://dean.edwards.name/weblog/usage.html">allowed</a>.</p>
+ <input type="hidden" name="preview_comment_post_ID" value="72">
+ <input type="hidden" name="preview_redirect_to" value="/weblog/2006/05/prototype-and-base/#comments">
+ <fieldset>
+  <p><label for="author">Name:</label>
+   <input type="text" name="preview_author" id="author" value="" required=""></p>
+  <p><label for="email">Email:</label>
+   <input type="text" name="preview_email" id="email" value="" required=""></p>
+  <p><label for="url"><abbr title="Uniform Resource Identifier">URI</abbr>:</label>
+   <input type="text" name="preview_url" id="url" value=""></p>
+  <p><textarea name="preview_comment" cols="70" rows="8" required=""></textarea></p>
+ </fieldset>
+ <p><button type="submit" name="preview_submit" id="submit-comment">Preview</button></p>
+</form>
+</section>
+
+<footer>
+ <p>Copyright © 2004-2011 Dean Edwards. All rights reserved.</p>
+</footer>
+
+
+
+
+
+
+
+<!--
+     FILE ARCHIVED ON 4:51:56 Aug 26, 2012 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 14:25:09 Apr 6, 2013.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+</body></html>
