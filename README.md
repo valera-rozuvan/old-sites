@@ -4,7 +4,16 @@ dead websites brought back to life
 
 ## about
 
-Web pages that have useful information sometimes disappear. Some of them will be reborn here. Check them out live at [valera-rozuvan.github.io/old-sites](https://valera-rozuvan.github.io/old-sites).
+Web pages that have useful information sometimes disappear. Some of them will be reborn here.
+
+## live version
+
+Check them out live at [valera-rozuvan.github.io/old-sites](https://valera-rozuvan.github.io/old-sites).
+
+For now, there are:
+
+- JavaScript resources from `dean.edwards.name` site
+- JavaScript resources from `developer.netscape.com` site
 
 ---
 
