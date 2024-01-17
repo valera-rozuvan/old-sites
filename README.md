@@ -13,7 +13,6 @@ Check them out live at [valera-rozuvan.github.io/old-sites](https://valera-rozuv
 For now, there are:
 
 - JavaScript resources from `dean.edwards.name` site
-- JavaScript resources from `developer.netscape.com` site
 
 ---
 
